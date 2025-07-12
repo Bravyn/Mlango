@@ -59,11 +59,7 @@ class _MainMenuState extends State<MainMenu> {
                             ),
                   ),
                   SizedBox(height: 16),
-                  ElevatedButton.icon(
-                    onPressed: _pickNewImage,
-                    icon: Icon(Icons.photo_library),
-                    label: Text("Change Picture"),
-                  ),
+                  Row(mainAxisAlignment: MainAxisAlignment.spaceAround),
                 ],
               ),
             ),
@@ -121,7 +117,14 @@ class _MainMenuState extends State<MainMenu> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
 
-              children: [IconButton(onPressed: () {}, icon: Icon(Icons.home))],
+              children: [
+                IconButton(onPressed: () {}, icon: Icon(Icons.home)),
+                IconButton(onPressed: () {}, icon: Icon(Icons.person)),
+                IconButton(
+                  onPressed: () {},
+                  icon: Icon(Icons.check_box_outline_blank_outlined),
+                ),
+              ],
             ),
           ),
         ],
