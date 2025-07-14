@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mlango/screens/home_screen.dart';
 
@@ -10,6 +11,9 @@ class MainMenu extends StatefulWidget {
 
 class _MainMenuState extends State<MainMenu> {
   File? _profileImage;
+  DateTime? _workStartTime;
+  List<Map<String, dynamic>> _workSessions = [];
+
   final ImagePicker _picker = ImagePicker();
 
   Future<void> _pickNewImage() async {
@@ -66,6 +70,73 @@ class _MainMenuState extends State<MainMenu> {
           ),
     );
   }
+//WORK BUTTON ON PRESSED CALLBACK
+  void _toggleWorkSessions(){
+    if (_workStartTime == null ){
+      //start a work session
+      setState(() {
+        _workStartTime = DateTime.now();
+        _getCurrentPosition().then((position) {
+          if (position != null) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text("📍 Location: ${position.latitude}, ${position.longitude}"),
+              ),
+            );
+          }
+        });
+
+      });
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("🕐 Clocked in at ${_workStartTime!.hour}:${_workStartTime!.minute.toString().padLeft(2, '0')}")),
+        );
+    } else {
+      //stop the work session
+      final endTime = DateTime.now();
+      final duration = endTime.difference(_workStartTime!);
+      setState(() {
+        _workSessions.add({
+          'start': _workStartTime,
+          'end': endTime,
+          'duration': duration,
+        });
+        _workStartTime = null;
+      });
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("🕐 Clocked out at ${endTime.hour}:${endTime.minute.toString().padLeft(2, '0')}"),
+        ),
+      );
+    }
+  }
+
+  Future<Position?> _getCurrentPosition() async {
+    bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if(!serviceEnabled) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Location services are disabled. Please enable them.")),
+      );
+      return null;
+    }
+
+    LocationPermission permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied){
+        ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text("Location permission denied"))
+          );
+        return null;
+        
+      }
+    }
+    return await Geolocator.getCurrentPosition(locationSettings: LocationSettings(
+      accuracy: LocationAccuracy.best,
+      distanceFilter: 10,
+    ));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -85,11 +156,16 @@ class _MainMenuState extends State<MainMenu> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+                //AT WORK BUTTON
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: _toggleWorkSessions,
+                      
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [Text("AT WORK"), Icon(Icons.laptop)],
+                    children: [
+                      Text(_workStartTime == null ? "AT WORK" : "STOP WORK"),
+                      Icon(_workStartTime == null ? Icons.laptop : Icons.stop_circle)
+                      ],
                   ),
                 ),
 
@@ -115,15 +191,17 @@ class _MainMenuState extends State<MainMenu> {
             left: 20,
             right: 20,
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              mainAxisAlignment: MainAxisAlignment.start,
 
               children: [
-                IconButton(onPressed: () {}, icon: Icon(Icons.home)),
-                IconButton(onPressed: () {}, icon: Icon(Icons.person)),
+                IconButton(onPressed: () {}, icon: Icon(Icons.home), iconSize: 22,),
+                SizedBox(width: 20,),
+                IconButton(onPressed: () {}, icon: Icon(Icons.person), iconSize: 22,),
+                SizedBox(width: 20,),
                 IconButton(
                   onPressed: () {},
-                  icon: Icon(Icons.check_box_outline_blank_outlined),
-                ),
+                  icon: Icon(Icons.check_box_outline_blank_outlined, ), iconSize: 22),
+                
               ],
             ),
           ),
