@@ -191,7 +191,7 @@ class _MainMenuState extends State<MainMenu> {
             left: 20,
             right: 20,
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
 
               children: [
                 IconButton(onPressed: () {}, icon: Icon(Icons.home), iconSize: 22,),

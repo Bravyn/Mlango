@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mlango/screens/landing_page.dart';
 import 'package:mlango/screens/main_menu.dart';
 
 void main() {
@@ -77,7 +78,7 @@ class SignUp extends StatelessWidget {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => MainMenu()));
+                      MaterialPageRoute(builder: (context) => LandingPage()));
                   },
                   style: OutlinedButton.styleFrom(
                     padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
