@@ -12,7 +12,12 @@ class LandingPage extends StatelessWidget {
             left: 0,
             right: 0,
             child: Container(
-              padding: EdgeInsets.only(top: 40.0, left: 12.0, right: 12.0, bottom: 0),
+              padding: EdgeInsets.only(
+                top: 40.0,
+                left: 12.0,
+                right: 12.0,
+                bottom: 0,
+              ),
               color: color1,
               child: Column(
                 children: [
@@ -20,31 +25,42 @@ class LandingPage extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      ElevatedButton.icon(
-                        icon: Icon(Icons.account_tree_rounded, size: 26, color: const Color.fromARGB(255, 231, 81, 81)),
-                        onPressed: () {},
-                        label: RichText(
-                          text: TextSpan(
-                            text: "ABC PLACE",
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold,
-                            ),
-                            children: [
-                              TextSpan(
-                                text: "\n2.6KM AWAY",
-                                style: TextStyle(color: Colors.black, fontWeight: FontWeight.normal),
+                      PopupMenuButton<String>(
+                        onSelected: (value) {
+                          //
+                        },
+                        itemBuilder:
+                            (BuildContext context) => [
+                              PopupMenuItem(
+                                value: 'Option 1',
+                                child: Text("Option 1"),
                               ),
+                              PopupMenuItem(
+                                value: 'Option 2',
+                                child: Text('Option 2'),
+                              ),
+                              PopupMenuItem(
+                                value: 'Option 3',
+                                child: Text("Option 3")
+                            )
                             ],
-                          ),
-                        ),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Color.fromARGB(255, 142, 219, 255),
-                          side: BorderSide(
-                            color: Color.fromARGB(255, 142, 219, 255),
-                          ),
-                          elevation: 0.0,
-                        ),
+                            child: ElevatedButton(onPressed: null, 
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Icon(Icons.local_grocery_store),
+                                SizedBox(width: 10),
+                                RichText(text: TextSpan(text: "ABC Place", children: [
+                                  TextSpan(text: "\n2.6KM AWAY")
+                                ])),
+                                SizedBox(width: 10,),
+                                Icon(Icons.arrow_circle_down_outlined)
+
+                              ]
+                              
+                            )
+                            ),
                       ),
                       CircleAvatar(
                         backgroundColor: Colors.amber,
@@ -54,7 +70,7 @@ class LandingPage extends StatelessWidget {
                     ],
                   ),
                   SizedBox(height: 13),
-                  
+
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
@@ -69,11 +85,18 @@ class LandingPage extends StatelessWidget {
                     ],
                   ),
                   SizedBox(height: 7),
-                  ClipRRect(borderRadius: BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10)), 
-                  child: Image.asset('assets/images/LIQUID BIOMETRICS.jpg',height: 200, fit: BoxFit.cover),
-),
+                  ClipRRect(
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(10),
+                      topRight: Radius.circular(10),
+                    ),
+                    child: Image.asset(
+                      'assets/images/LIQUID BIOMETRICS.jpg',
+                      height: 200,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
                   SizedBox(height: 11),
-                  
                 ],
               ),
             ),
