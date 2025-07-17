@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 
 class LandingPage extends StatelessWidget {
-  final color1 = const Color.fromARGB(255, 213, 227, 238);
+  final Color color1 = const Color.fromARGB(255, 213, 227, 238);
+  final int current = 17;
+  final int total = 30;
+
+ 
   @override
   Widget build(BuildContext content) {
     return Scaffold(
@@ -41,26 +45,35 @@ class LandingPage extends StatelessWidget {
                               ),
                               PopupMenuItem(
                                 value: 'Option 3',
-                                child: Text("Option 3")
-                            )
+                                child: Text("Option 3"),
+                              ),
                             ],
-                            child: ElevatedButton(onPressed: null, 
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                Icon(Icons.local_grocery_store),
-                                SizedBox(width: 10),
-                                RichText(text: TextSpan(text: "ABC Place", children: [
-                                  TextSpan(text: "\n2.6KM AWAY")
-                                ])),
-                                SizedBox(width: 10,),
-                                Icon(Icons.arrow_circle_down_outlined)
-
-                              ]
-                              
-                            )
-                            ),
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color.fromARGB(255, 20, 20, 20),
+                            side: BorderSide(style: BorderStyle.none),
+                            padding: EdgeInsets.all(7.0),
+                            
+                          ),
+                          onPressed: null,
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Icon(Icons.local_grocery_store),
+                              SizedBox(width: 10),
+                              RichText(
+                                text: TextSpan(
+                                  text: "ABC Place", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black),
+                                  children: [TextSpan(text: "\n2.6KM AWAY", style: TextStyle(fontSize: 18, fontWeight: FontWeight.normal, color: Colors.black))],
+                                ),
+                              ),
+                              SizedBox(width: 10),
+                              Icon(Icons.arrow_drop_down_circle),
+                            ],
+                          ),
+                          
+                        ),
                       ),
                       CircleAvatar(
                         backgroundColor: Colors.amber,
@@ -78,7 +91,7 @@ class LandingPage extends StatelessWidget {
                         "Good Evening, Monica!",
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          fontSize: 16.0,
+                          fontSize: 22.0,
                         ),
                         textAlign: TextAlign.left,
                       ),
@@ -94,10 +107,27 @@ class LandingPage extends StatelessWidget {
                       'assets/images/LIQUID BIOMETRICS.jpg',
                       height: 200,
                       fit: BoxFit.cover,
+                      
                     ),
                   ),
                   SizedBox(height: 11),
                 ],
+              ),
+            ),
+          ),
+
+          Positioned(
+            top: 340,
+            left: 0,
+            right: 0,
+            child: Container(
+              color: Colors.white,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                
+                children: [
+                  Icon(Icons.coffee),
+                  Text("Orders 08/30")],
               ),
             ),
           ),

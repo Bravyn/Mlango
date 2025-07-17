@@ -3,6 +3,7 @@ import 'package:mlango/screens/landing_page.dart';
 import 'package:mlango/screens/main_menu.dart';
 
 void main() {
+  
   runApp(MainApp());
 }
 
