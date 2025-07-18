@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mlango/screens/landing_page.dart';
-import 'package:mlango/screens/main_menu.dart';
+//import 'package:mlango/screens/main_menu.dart';
 
 void main() {
   

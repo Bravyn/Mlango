@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 
 class LandingPage extends StatelessWidget {
   final Color color1 = const Color.fromARGB(255, 213, 227, 238);
-  final int current = 17;
+  final int current = 8;
   final int total = 30;
 
  
   @override
-  Widget build(BuildContext content) {
+  Widget build(BuildContext context) {
+    double progress = current / total;
     return Scaffold(
       body: Stack(
         children: [
@@ -50,12 +51,13 @@ class LandingPage extends StatelessWidget {
                             ],
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color.fromARGB(255, 20, 20, 20),
+                            backgroundColor: color1,
                             side: BorderSide(style: BorderStyle.none),
+                            elevation: 0,
                             padding: EdgeInsets.all(7.0),
                             
                           ),
-                          onPressed: null,
+                          onPressed: (){},
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -117,17 +119,33 @@ class LandingPage extends StatelessWidget {
           ),
 
           Positioned(
-            top: 340,
-            left: 0,
-            right: 0,
+            top: MediaQuery.of(context).size.height * 0.40,
+            left: 10,
+            right: 10,
             child: Container(
-              color: Colors.white,
+              //color: Colors.black,
+              padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16), // Add some padding
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                
+                mainAxisSize: MainAxisSize.min,
+              
                 children: [
-                  Icon(Icons.coffee),
-                  Text("Orders 08/30")],
+                 Icon(Icons.coffee),
+                  Column(
+                    //mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      
+                  
+                  SizedBox(
+                    width: 80,
+                    child: Text(
+                      "Orders ${current.toString().padLeft(2, '0')}/$total",
+                      textAlign: TextAlign.right,
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                    ],
+                  )
+                ],
               ),
             ),
           ),
