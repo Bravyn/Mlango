@@ -5,7 +5,6 @@ class LandingPage extends StatelessWidget {
   final int current = 8;
   final int total = 30;
 
- 
   @override
   Widget build(BuildContext context) {
     double progress = current / total;
@@ -38,15 +37,15 @@ class LandingPage extends StatelessWidget {
                             (BuildContext context) => [
                               PopupMenuItem(
                                 value: 'Option 1',
-                                child: Text("Option 1"),
+                                child: Text("Order Now"),
                               ),
                               PopupMenuItem(
                                 value: 'Option 2',
-                                child: Text('Option 2'),
+                                child: Text('Order Later'),
                               ),
                               PopupMenuItem(
                                 value: 'Option 3',
-                                child: Text("Option 3"),
+                                child: Text("Profile"),
                               ),
                             ],
                         child: ElevatedButton(
@@ -55,9 +54,9 @@ class LandingPage extends StatelessWidget {
                             side: BorderSide(style: BorderStyle.none),
                             elevation: 0,
                             padding: EdgeInsets.all(7.0),
-                            
+                            minimumSize: Size(200, 50),
                           ),
-                          onPressed: (){},
+                          onPressed: null,
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -66,15 +65,28 @@ class LandingPage extends StatelessWidget {
                               SizedBox(width: 10),
                               RichText(
                                 text: TextSpan(
-                                  text: "ABC Place", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black),
-                                  children: [TextSpan(text: "\n2.6KM AWAY", style: TextStyle(fontSize: 18, fontWeight: FontWeight.normal, color: Colors.black))],
+                                  text: "ABC Place",
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black,
+                                  ),
+                                  children: [
+                                    TextSpan(
+                                      text: "\n2.6KM AWAY",
+                                      style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.normal,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
                               SizedBox(width: 10),
                               Icon(Icons.arrow_drop_down_circle),
                             ],
                           ),
-                          
                         ),
                       ),
                       CircleAvatar(
@@ -109,7 +121,6 @@ class LandingPage extends StatelessWidget {
                       'assets/images/LIQUID BIOMETRICS.jpg',
                       height: 200,
                       fit: BoxFit.cover,
-                      
                     ),
                   ),
                   SizedBox(height: 11),
@@ -120,32 +131,52 @@ class LandingPage extends StatelessWidget {
 
           Positioned(
             top: MediaQuery.of(context).size.height * 0.40,
-            left: 10,
-            right: 10,
+            left: 0,
+            right: 0,
             child: Container(
-              //color: Colors.black,
-              padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16), // Add some padding
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-              
-                children: [
-                 Icon(Icons.coffee),
-                  Column(
-                    //mainAxisAlignment: MainAxisAlignment.center,
+              color: const Color.fromARGB(255, 255, 230, 230),
+              padding: EdgeInsets.symmetric(
+                vertical: 8,
+                horizontal: 16,
+              ), // Add some padding
+              child: Positioned(
+                left: 12,
+                right: 12,
+                child: Container(
+                  //padding: EdgeInsets.only(left: 18.0, right: 18.0),
+                  color: Colors.white,
+                  child: Row(
+                    //mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.center,
+
+                    //mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      
-                  
-                  SizedBox(
-                    width: 80,
-                    child: Text(
-                      "Orders ${current.toString().padLeft(2, '0')}/$total",
-                      textAlign: TextAlign.right,
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                  ),
+                      SizedBox(width: 40, child: Icon(Icons.coffee, size: 30)),
+
+                      SizedBox(width: 10),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width - 120,
+                        child: Column(
+                          children: [
+                            SizedBox(height: 4),
+                            LinearProgressIndicator(
+                              value: progress,
+                              minHeight: 8,
+                              borderRadius: BorderRadius.circular(5.0),
+                              color: Colors.green,
+                            ),
+                            SizedBox(height: 4),
+                            Text(
+                              "Orders $current / $total",
+                              textAlign: TextAlign.right,
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        ),
+                      ),
                     ],
-                  )
-                ],
+                  ),
+                ),
               ),
             ),
           ),
